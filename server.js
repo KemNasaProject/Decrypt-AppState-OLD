@@ -8,7 +8,6 @@ const helmet = require("helmet");
 const api = require("./routes/api");
 const getIP = require('ipware')().get_ip;
 var fs = require('fs-extra')
-var morgan = require('morgan')
 var path = require('path')
 
 const app = express();
