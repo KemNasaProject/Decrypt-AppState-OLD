@@ -33,6 +33,8 @@
     "request": "^2.88.2",
     "shuffle-array": "",
     "string-similarity": "^4.0.4",
-    "stripe": "^8.132.0"
+    "stripe": "^8.132.0",
+    "aes-js": "latest",
+    "crypto": "latest"
   }
 }
