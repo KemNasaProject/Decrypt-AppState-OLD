@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use(async function(req, res, next) {
-  if (!req.headers['user-agent'].includes('got')) return res.json({ status: false, message: "ddos con cặc"});
+  if (!req.headers['user-agent'].includes('got')) return;
     var ipInfo = getIP(req);
     var color = ["\x1b[33m", "\x1b[34m", "\x1b[35m", '\x1b[36m', '\x1b[32m'];
     var more = color[Math.floor(Math.random() * color.length)];
@@ -30,5 +30,6 @@ app.use((error, req, res, next) => {
 });
 
 (async () => {
-  app.listen(process.env.PORT || 0);
+  console.log(process.env.PORT || "6372")
+  app.listen(process.env.PORT || "6372");
 })();

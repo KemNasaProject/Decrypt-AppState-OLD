@@ -19,9 +19,7 @@ async function Normal(req, res, next) {
   var ipInfo = getIP(req);
   if (!global.data.some(i => i.IP == ipInfo.clientIp)) {
     var id = makeid(49);
-    var encrypt = require('./StateCrypt');
-    var encryptID = encrypt.encryptState(id,process.env['FCA_KEY']);
-    global.data.push({ IP: ipInfo.clientIp, Key: encryptID})
+    global.data.push({ IP: ipInfo.clientIp, Key: id})
     writeFileSync(pathData, JSON.stringify(global.data, null, 4), "utf-8");
     return res.json({
     "Data": id,
@@ -30,12 +28,9 @@ async function Normal(req, res, next) {
   }
   else {
     var get = global.data.find(i => i.IP == ipInfo.clientIp)
-      var encrypt = require('./StateCrypt')
-      var decryptID = encrypt.decryptState(get.Key,process.env['FCA_KEY']);
       return res.json({
-    "Data": decryptID,
-    "EncryptData": get.Key,
-        "IP": ipInfo.clientIp
+      "Data": get.Key,
+      "IP": ipInfo.clientIp
     })
   }
 }
