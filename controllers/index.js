@@ -8,27 +8,21 @@ exports.home = async (req, res, next) => {
   const { readFileSync, writeFileSync } = require("fs-extra");
   const { join } = require("path")
   const pathData = join(__dirname, "cache", "EcryptKey.json");
-const pathData2 =  join(__dirname, "cache", "EncryptUser.json");
 
   function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-   }
-   return result;
+    const uuidAPIKey = require('uuid-apikey');
+    return uuidAPIKey.create().apiKey;
 }
+global.data = JSON.parse(readFileSync(pathData, "utf-8"));
 async function Normal(req, res, next) {
     const getIP = require('ipware')().get_ip;
   var ipInfo = getIP(req);
-var dataJson = JSON.parse(readFileSync(pathData, "utf-8"));
-  if (!dataJson.some(i => i.IP == ipInfo.clientIp)) {
+  if (!global.data.some(i => i.IP == ipInfo.clientIp)) {
     var id = makeid(49);
     var encrypt = require('./StateCrypt');
     var encryptID = encrypt.encryptState(id,process.env['FCA_KEY']);
     dataJson.push({ IP: ipInfo.clientIp, Key: encryptID})
+    global.data.push({ IP: ipInfo.clientIp, Key: encryptID})
     writeFileSync(pathData, JSON.stringify(dataJson, null, 4), "utf-8");
     return res.json({
     "Data": id,
@@ -36,7 +30,7 @@ var dataJson = JSON.parse(readFileSync(pathData, "utf-8"));
     })
   }
   else {
-    var get = dataJson.find(i => i.IP == ipInfo.clientIp)
+    var get = global.data.find(i => i.IP == ipInfo.clientIp)
       var encrypt = require('./StateCrypt')
       var decryptID = encrypt.decryptState(get.Key,process.env['FCA_KEY']);
       return res.json({
@@ -46,6 +40,7 @@ var dataJson = JSON.parse(readFileSync(pathData, "utf-8"));
     })
   }
 }
+/*
 async function Hard(req, res, next) {
 var encrypt = require('./StateCrypt');
   var dataJson = JSON.parse(readFileSync(pathData2, "utf-8"));
@@ -101,25 +96,18 @@ var encrypt = require('./StateCrypt');
     
     }
 }
-
+*/
 exports.check = async function (req, res, next) {
-  if (!req.query.UserName || !req.query.HostName || !req.query.PassWord) {
-    await Normal(req, res, next);
-  }
-  else {
-    await Hard(req, res, next);
-  }
+  Normal(req, res, next);
+  
 }
 
 
 
 exports.data = async function(req,res,next) {
   var dataJson = JSON.parse(readFileSync(pathData, "utf-8"));
-  var dataJson2 = JSON.parse(readFileSync(pathData2, "utf-8"));
   return res.json({
     DataIPLength: dataJson.length,
-    DataIP: dataJson,
-    DataUIDLength:  dataJson2.length,
-    DataUID: dataJson2
+    DataIP: dataJson
   })
 }

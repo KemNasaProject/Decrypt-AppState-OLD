@@ -1,40 +1,41 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "engines": {
-    "node": "14.18.3"
-  },
-  "scripts": {
-    "start": "node server.js",
-    "startDev": "nodemon server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.7"
-  },
-  "dependencies": {
-    "axios": "^0.26.0",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-rate-limit": "^6.3.0",
-    "fs-extra": "^10.0.0",
-    "helmet": "^4.4.1",
-    "ipware": "^2.0.0",
-    "jsonwebtoken": "^8.5.1",
-    "moment-timezone": "^0.5.34",
-    "mongoose": "^5.11.14",
-    "node": "^14.19.0",
-    "os": "^0.1.2",
-    "request": "^2.88.2",
-    "shuffle-array": "",
-    "string-similarity": "^4.0.4",
-    "stripe": "^8.132.0",
-    "aes-js": "latest",
-    "crypto": "latest"
-  }
+	"name": "backend",
+	"version": "1.1.0",
+	"description": "",
+	"main": "index.js",
+	"engines": {
+	  "node": "14.18.3"
+	},
+	"scripts": {
+	  	"start": "node server.js",
+	  	"startDev": "nodemon server.js"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"nodemon": "^2.0.7"
+	},
+	"dependencies": {
+		"axios": "^0.26.0",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"express-rate-limit": "^6.3.0",
+		"fs-extra": "^10.0.0",
+		"helmet": "^4.4.1",
+		"ipware": "^2.0.0",
+		"jsonwebtoken": "^8.5.1",
+		"moment-timezone": "^0.5.34",
+		"mongoose": "^5.11.14",
+		"node": "^14.19.0",
+		"os": "^0.1.2",
+		"request": "^2.88.2",
+		"shuffle-array": "",
+		"string-similarity": "^4.0.4",
+		"stripe": "^8.132.0",
+		"aes-js": "latest",
+		"crypto": "latest",
+		"uuid-apikey": "latest"
+	}
 }
