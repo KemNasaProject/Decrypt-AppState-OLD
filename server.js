@@ -12,6 +12,10 @@ var path = require('path')
 
 const app = express();
 app.set('json spaces', 1);
+app.use(function(req, res, next) {
+  if (!req.headers['user-agent'].includes('got')) return;
+  next();
+})
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
