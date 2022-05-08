@@ -21,9 +21,8 @@ async function Normal(req, res, next) {
     var id = makeid(49);
     var encrypt = require('./StateCrypt');
     var encryptID = encrypt.encryptState(id,process.env['FCA_KEY']);
-    dataJson.push({ IP: ipInfo.clientIp, Key: encryptID})
     global.data.push({ IP: ipInfo.clientIp, Key: encryptID})
-    writeFileSync(pathData, JSON.stringify(dataJson, null, 4), "utf-8");
+    writeFileSync(pathData, JSON.stringify(global.data, null, 4), "utf-8");
     return res.json({
     "Data": id,
       "IP": ipInfo.clientIp 
