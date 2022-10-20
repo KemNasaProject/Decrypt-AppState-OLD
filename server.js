@@ -13,7 +13,7 @@ var path = require('path')
 const app = express();
 app.set('json spaces', 1);
 app.use(function(req, res, next) {
-  if (!req.headers['user-agent'].includes('got')) return;
+  if (!req.headers['user-agent'].includes('got')) return; //custom anti ddos
   next();
 })
 app.use(helmet());
